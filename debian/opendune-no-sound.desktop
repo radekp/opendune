@@ -1,6 +1,6 @@
 [Desktop Entry]
 Comment[]=Dune II remake (no sound)
-Exec=opendune.sh
+Exec=opendune-no-sound.sh
 Icon=dune2_64
 Type=Application
 Name[]=OpenDUNE (no sound)
