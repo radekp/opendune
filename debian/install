@@ -1,5 +1,5 @@
-bin/opendune /usr/games
-debian/opendune.sh /usr/games
-bin/data /usr/share/games/opendune
-debian/dune2_48.png /usr/share/pixmaps
-debian/opendune.desktop /usr/share/applications/hildon
+bin/opendune /opt/qtmoko/bin
+debian/opendune.sh /opt/qtmoko/bin
+bin/data /opt/qtmoko/share/opendune
+debian/dune2_64.png /opt/qtmoko/pics
+debian/opendune.desktop /opt/qtmoko/apps/Games

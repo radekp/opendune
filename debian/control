@@ -1,92 +1,14 @@
 Source: opendune
 Section: user/games
 Priority: extra
-Maintainer: Tomasz Sterna <tomek@xiaoka.com>, Siim Salonen <siim.salonen@gmail.com>
+Maintainer: Radek Polak <psonek2@seznam.cz>
 Build-Depends: debhelper (>= 5), autotools-dev, libsdl1.2-dev
 Standards-Version: 3.7.2
 Homepage: http://www.opendune.org/
 
 Package: opendune
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, wget, bzip2, zenity
+Depends: libsdl-qtmoko
 Description: Classic Real-Time Strategy game
  OpenDUNE is an open source re-creation of the popular game “Dune II”,
  originally made by Westwood Studios.
-XSBC-Bugtracker: http://talk.maemo.org/showthread.php?t=54779
-XB-Maemo-Display-Name: OpenDUNE
-XB-Maemo-Icon-26:
- iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c
- 6QAADOVJREFUaN7tmHusZ1dVxz9r7X0ev8d9zJ07M+3M9EUnLZSWygSQEmJb
- QkwoPiCCaFRC0ComhFcANaCIimgIJsofQIyiIEZqaFHaCoVWmqYU2gJSqC2l
- U6Yz087cmXvn3t/7PPbeyz/uzIUKJIAPJM432SfZJyfnfNda3/XYB87gDM7g
- DM7g/zPkh/HR379mr1zy1CdL3u9ZVpb4GorkqJ0jZIqmxMwibq7Hz77mL+2H
- bsAbz3EiKCyURAS35KmGrRRzffOnDOiqp1Gl9qBqNCTe9YmH7YcSgdfudtIh
- wxm842hlPxJavPln9suHrt4nf/aM5e/ZKR/6rSv1/X/4egH43If/qrjrhvdv
- f+ALf59/t+d/Z/8F8t8egX+65iJxZPzUzfc/wdNvfto2vfZNb8iWlnrdgwce
- vmzhrD2XhiK/JJVs7y72epLt6kbzubjKuyxo0zRy8OAh++IXDuqddz7KwccO
- VLPR8Xuufclz3vKm99xa/a9J6HUvvGz+l1/1muXxYHzZRU86f99cLs8y8bsD
- 0k0aO65jZaTOQ2yzkJKeHIz0wa8d5tbb7tVbbvkcG4NII1iWW5P7+uhSwTsf
- PJauO/3+D16zU15+83H7gQ348s+fJ5df9+h31PVd1/3JC7K5xWf2t++6KGX5
- +d3u3HZS7NNWHW9VRpp6p40LYabRTO5/8Bvc+C93ymfuuJ/jaw1tWiDhRYrW
- ZmESO0Wc9Ghu3a7Zq+8/Ua8AvP2K7TKeRt715Q37vgz40q91xBph/wen30b+
- yP23PUXa8SudS/tjmu4UaReq2bg7JRWWS+7bifPNhFyiiiknVje4/qavcuMn
- 72V9OGNUQ/IdouQkUUEhiiW0acvUrC+ovLnXzD78wJAE8OJz5/WGQ8ME4L9X
- A87asczZ7zz8BPJ2z9s6ozR37Sw8/kttbHamOOlLu15as56VcexwSdvktLBA
- oUo1cxw8PLF3v+cG+cL9DeZ6mFsEHzAXET/FiUAoDRNJyfsA/XFdvSLrL97E
- cOMkwNGhyX8pB+zLf91rwvrVITVvnNbDi0MYdxJtMauHHm3UF0iilRgNL5nF
- qhZJfe7+tzXe/b47OLQmVElJYhRFjxAE0wAuoERcUIJ4AlhKsekXbjRX+Nc9
- 8tiJDwNcsdBXUcdn1wfJfz/Ev/SKp+pTXvmCK4bVgy8bh/qnq7ZZjNWkzNNq
- 5vNSNVcaDVLHBkdmaToRjSJro5LbPvsw/3jTQxw4kZP8IuYGiDTUoUbwiAlE
- d8qnhpLwoiRVP55UGan41Suvet4tt3/mthNXnTdvWZv0s+uD7z0C6abfyMO2
- /qvWq/pl6+nkvkY2+h2X51pnmuelNtKhImBuYDZblbL2zDYGtKng+ltP8JFP
- PsbRUQc0Q6RGJXyzFIogp5jYFiVDEEspISJ1Sml122L/tYcOH70e4Mardrmx
- n0/6ncge/91Lvs2wdnf+B0dGK7++0mw8eartwjRWZZ1qF70K1oXaTMYDdLIi
- Uq0QwwrBz3HdLUf4h48/xMlRREUR2s0lIKLIaeYIIKeugGGAqCopJW9m3Tgc
- vvQ0n/LCypYuGMm3ET3y9t1u79sej6f3q5+4+ulNZ/n3RtXoUhG3I7myG23k
- qvq4FniLs0zatqTUDMcE54ZUbctsUvK3HzvAx+4Y0VpByzwm+SnvzzAcZg7Y
- rAtm9i3GbO3NzCSllFTdLGunj1w431z5+WOsH3jvedq2lXtCBA6+Y4d+K/nB
- Pz//qsb44416+HTC5CwbHu+FlcNe149LdzKwzmwoWb1OkW9AOEYvjtFxgmo3
- t/5rxc23zxjEgip1ieYwi5srJTDDvmWJfEc1i4igqhJTzGrc4krwVwFc+JuP
- JinGbiuJH33LXj3vLUfS6f3kky+/+PjGY28YDQeXGtlSXVWFtqopegnaUrVT
- nHoiBeM4phOMLCuoQ8adDxzio7ccZ9AuIHkAFCUgkjASJrpVAL8L8a37tgkR
- 8K3v91ar8X4IN2yqrGse4OvX7tbpSrtV4z9w7baF6z7x+Vdv3yPPXCrb+V4V
- ymmdy7gpJbTRxLeysGOZ9emYugYvfQozjg2OMwuO2+88ydHRPK0rEdlAMRwC
- kjAgiSJmQMTslPZFNsV06iIip6MjZoYKmHRKNFwMMwBm9WLyD//RnOx76+Nb
- nr/rt688/6M3fuUvhisPPf0nn717oT7/rOK9tz8k+59yuTxyz30WZiYXn11y
- xf4LOXD/kLseXKeTZzx/X5dd/S5fGcDdB4S1HJyD3BbArRMJxFCCOZw3UtqG
- 9z1EZsQ4JqUKlYjqprkpfVNaIoKA4KYuyGzv7oILHq/5xnKKSfe9dbTlefvU
- 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
