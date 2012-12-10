@@ -26,7 +26,7 @@ bool g_enableVoices = true;
  */
 bool Config_Read(char *filename, DuneCfg *config)
 {
-	char name[18]; /* "data/8.3" */
+	char name[256]; /* "data/8.3" */
 	FILE *f;
 	size_t read;
 	uint8 sum;
