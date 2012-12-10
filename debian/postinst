@@ -1,0 +1,92 @@
+#!/bin/sh
+# postinst script for opendune
+#
+# see: dh_installdeb(1)
+
+set -e
+
+DUNE2_DATA="http://devs.opendune.org/~truebrain/releases/opendune-data.tar.bz2"
+DUNE2_SCENARIO="http://forum.opendune.org/download/file.php?id=6"
+DUNE2_SCENARIO_LEN=312224
+
+download_with_progress() {
+	if [ $# -lt 3 ]; then return; fi
+	URL=$1
+	TARGET=$2
+	NAME=$3
+
+	wget "$URL" -O"$TARGET" 2>&1 \
+	| sed 's/.*\ \([0-9]\+%\)\ \+\([0-9.]\+\ [KMB\/s]\+\)$/\1\n# Downloading \2/' \
+	| zenity --progress --auto-close --auto-kill --title="Downloading Dune II $NAME files..." &
+
+	#Start a loop testing if zenity is running, and if not kill wget
+	RUNNING=0
+	while [ $RUNNING -eq 0 ]
+	do
+	if [ -z "$(pidof zenity)" ]
+	then
+		pkill wget | :
+		RUNNING=1
+	fi
+	sleep 1
+	done
+}
+
+case "$1" in
+	configure)
+	mkdir -p /home/user/MyDocs/Games/DUNE2
+	
+	if [ ! -L /opt/maemo/usr/share/games/opendune/data ]; then
+		if [ -r /opt/maemo/usr/share/games/opendune/data ]; then
+			mv -f /opt/maemo/usr/share/games/opendune/data/* /home/user/MyDocs/Games/DUNE2/ || true
+			rmdir /opt/maemo/usr/share/games/opendune/data
+		fi
+		ln -s /home/user/MyDocs/Games/DUNE2 /opt/maemo/usr/share/games/opendune/data
+		rm -f /opt/maemo/usr/share/games/opendune/data/ballast
+	fi
+
+	DATAFILE="opendune-data.tar.bz2"
+	SCENARIOFILE="scenario.pak"
+
+	cd /home/user/MyDocs/Games/DUNE2
+
+	if [ ! -r dune.pak ]; then
+		TAR='tar -x'
+		# if we use gnu-tar then different arguments are needed
+		tar --version > /dev/null 2> /dev/null && TAR='tar x --no-same-owner --no-same-permissions' || true
+				
+		rm -f $DATAFILE
+		download_with_progress "$DUNE2_DATA" "$DATAFILE" Data
+		# don't show 'mv: can't preserve ownership ...' warnings
+		bzcat $DATAFILE | $TAR > /dev/null 2> /dev/null
+		rm -f opendune-data/data/$SCENARIOFILE
+		mv opendune-data/data/* ./
+		rm -rf opendune-data $DATAFILE
+	fi
+
+	if [ ! -r "$SCENARIOFILE" ] || [ "$(ls -l $SCENARIOFILE | tr -s ' ' | cut -d' ' -f5)" -ne $DUNE2_SCENARIO_LEN ]; then
+		rm -f $SCENARIOFILE
+		download_with_progress "$DUNE2_SCENARIO" "$SCENARIOFILE" Scenario
+	fi
+
+	if [ ! -r dune.pak -o ! -r $SCENARIOFILE ]; then
+		zenity --info --text="Downloading Dune II files failed."
+		exit 1
+	fi
+
+	rm -f /opt/maemo/usr/share/games/opendune/libemu.so
+	;;
+
+	abort-upgrade|abort-remove|abort-deconfigure)
+	;;
+
+	*)
+		echo "postinst called with unknown argument \$1" >&2
+		exit 1
+	;;
+esac
+
+
+
+exit 0
+

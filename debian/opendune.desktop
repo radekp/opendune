@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Type=Application
+Name=OpenDUNE
+Comment=Dune II remake
+Exec=/usr/games/opendune.sh
+Icon=dune2_48
+Categories=Game;
+X-Osso-Type=application/x-executable
+StartupWMClass=opendune
+Terminal=false

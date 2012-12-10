@@ -1,0 +1,5 @@
+bin/opendune /usr/games
+debian/opendune.sh /usr/games
+bin/data /usr/share/games/opendune
+debian/dune2_48.png /usr/share/pixmaps
+debian/opendune.desktop /usr/share/applications/hildon
