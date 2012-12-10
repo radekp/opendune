@@ -44,7 +44,7 @@ static uint8 s_gfx_screen8[SCREEN_WIDTH * SCREEN_HEIGHT];
 static uint8 s_SDL_keymap[] = {
            0,    0,    0,    0,    0,    0,    0,    0, 0x0E, 0x0F,    0,    0,    0, 0x1C,    0,    0, /*  0x00 -  0x0F */
            0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0, 0x01,    0,    0,    0,    0, /*  0x10 -  0x1F */
-        0x39,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0, 0x0C, 0x33,    0, /*  0x20 -  0x2F */
+        0x39,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0, 0x33, 0x0C, 0x34,    0, /*  0x20 -  0x2F */
         0x0B, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A,    0,    0,    0,    0,    0,    0, /*  0x30 -  0x3F */
            0, 0x1E, 0x30, 0x2E, 0x20, 0x12, 0x21, 0x22, 0x23, 0x17, 0x24, 0x25, 0x26, 0x32, 0x31, 0x18, /*  0x40 -  0x4F */
         0x19, 0x10, 0x13, 0x1F, 0x14, 0x16, 0x2F, 0x11, 0x2D, 0x15, 0x2C,    0,    0,    0,    0,    0, /*  0x50 -  0x5F */
@@ -163,7 +163,7 @@ bool Video_Init()
 	}
 
 	SDL_WM_SetCaption(window_caption, "");
-	s_gfx_surface = SDL_SetVideoMode(SCREEN_WIDTH * SCREEN_MAGNIFICATION, SCREEN_HEIGHT * SCREEN_MAGNIFICATION, 8, SDL_SWSURFACE | SDL_HWPALETTE);
+	s_gfx_surface = SDL_SetVideoMode(SCREEN_WIDTH * SCREEN_MAGNIFICATION, SCREEN_HEIGHT * SCREEN_MAGNIFICATION, 8, SDL_SWSURFACE | SDL_HWPALETTE | SDL_FULLSCREEN);
 	if (s_gfx_surface == NULL) {
 		Error("Could not set resolution: %s\n", SDL_GetError());
 		return false;
@@ -476,6 +476,7 @@ void Video_Tick()
 
 	while (SDL_PollEvent(&event)) {
 		uint8 keyup = 1;
+		Uint8 *keystate;
 
 		switch (event.type) {
 			case SDL_QUIT: {
@@ -489,6 +490,9 @@ void Video_Tick()
 				break;
 
 			case SDL_MOUSEBUTTONDOWN:
+				keystate = SDL_GetKeyState(NULL);
+				if (keystate[SDLK_MODE])
+					break;
 				if (event.button.button == SDL_BUTTON_LEFT)  Video_Mouse_Button(true,  true);
 				if (event.button.button == SDL_BUTTON_RIGHT) Video_Mouse_Button(false, true);
 				break;
@@ -502,6 +506,10 @@ void Video_Tick()
 				/* Fall Through */
 			case SDL_KEYUP:
 			{
+				/* MAEMO */
+				if (event.key.keysym.sym == SDLK_KP_ENTER)
+					event.key.keysym.sym = SDLK_RETURN;
+
 				if (event.key.keysym.sym >= sizeof(s_SDL_keymap)) continue;
 				if (s_SDL_keymap[event.key.keysym.sym] == 0) {
 					Error("ERROR: unhandled key %X\n", event.key.keysym.sym);

@@ -208,5 +208,13 @@ bool GUI_Security_Show()
 	g_disableOtherMovement = false;
 	g_interrogation = false;
 
+#ifdef __arm__
+	/**
+	 * I know, that this is not welcome here, but it's quite a pain to search and open pdf on mobile.
+	 * More information: http://forum.opendune.org/viewtopic.php?f=8&t=159
+	 */
+	valid = true;
+#endif
+
 	return valid;
 }

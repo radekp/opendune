@@ -1840,7 +1840,11 @@ static void GameLoop_GameIntroAnimationMenu()
 		loc10 = true;
 
 		hasSave = File_Exists("_save000.dat");
+#ifdef __arm__
+		hasFame = File_Exists("SAVEFAME_ARM.DAT");
+#else
 		hasFame = File_Exists("SAVEFAME.DAT");
+#endif
 
 		if (hasSave || File_Exists("ONETIME.DAT")) s_var_37B4 = true;
 
@@ -1898,8 +1902,11 @@ static void GameLoop_GameIntroAnimationMenu()
 					GUI_HallOfFame_Show(0xFFFF);
 
 					GFX_SetPalette(g_palette2);
-
+#ifdef __arm__
+					hasFame = File_Exists("SAVEFAME_ARM.DAT");
+#else
 					hasFame = File_Exists("SAVEFAME.DAT");
+#endif
 					loc06 = true;
 					break;
 

@@ -1055,7 +1055,11 @@ bool GUI_Widget_HOF_ClearList_Click(Widget *w)
 
 		memset(data, 0, 128);
 
+#ifdef __arm__
+		if (File_Exists("SAVEFAME_ARM.DAT")) File_Delete("SAVEFAME_ARM.DAT");
+#else
 		if (File_Exists("SAVEFAME.DAT")) File_Delete("SAVEFAME.DAT");
+#endif
 
 		GUI_HallOfFame_DrawData(data, true);
 

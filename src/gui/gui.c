@@ -4147,18 +4147,22 @@ static void GUI_HallOfFame_DeleteButtons(Widget *w)
 
 static void GUI_HallOfFame_Encode(HallOfFameStruct *data)
 {
+#ifndef __arm__
 	uint8 i;
 	uint8 *d;
 
 	for (d = (uint8 *)data, i = 0; i < 128; i++, d++) *d = (*d + i) ^ 0xA7;
+#endif
 }
 
 static void GUI_HallOfFame_Decode(HallOfFameStruct *data)
 {
+#ifndef __arm__
 	uint8 i;
 	uint8 *d;
 
 	for (d = (uint8 *)data, i = 0; i < 128; i++, d++) *d = (*d ^ 0xA7) - i;
+#endif
 }
 
 static uint16 GUI_HallOfFame_InsertScore(HallOfFameStruct *data, uint16 score)
@@ -4187,11 +4191,19 @@ void GUI_HallOfFame_Show(uint16 score)
 	Widget *w;
 	uint8 fileID;
 	HallOfFameStruct *data;
+	char filename[18];
+
+	/* Fame encrypting/decrypting crashes on ARM, let's use unencrypted file */
+#ifdef __arm__
+	strcpy(filename,"SAVEFAME_ARM.DAT");
+#else
+	strcpy(filename,"SAVEFAME.DAT");
+#endif
 
 	GUI_Mouse_Hide_Safe();
 
 	if (score == 0xFFFF) {
-		if (!File_Exists("SAVEFAME.DAT")) {
+		if (!File_Exists(filename)) {
 			GUI_Mouse_Show_Safe();
 			return;
 		}
@@ -4200,21 +4212,21 @@ void GUI_HallOfFame_Show(uint16 score)
 
 	data = (HallOfFameStruct *)GFX_Screen_Get_ByIndex(5);
 
-	if (!File_Exists("SAVEFAME.DAT")) {
+	if (!File_Exists(filename)) {
 		uint16 written;
 
 		memset(data, 0, 128);
 
 		GUI_HallOfFame_Encode(data);
 
-		fileID = File_Open("SAVEFAME.DAT", 2);
+		fileID = File_Open(filename, 2);
 		written = File_Write(fileID, data, 128);
 		File_Close(fileID);
 
 		if (written != 128) return;
 	}
 
-	File_ReadBlockFile("SAVEFAME.DAT", data, 128);
+	File_ReadBlockFile(filename, data, 128);
 
 	GUI_HallOfFame_Decode(data);
 
@@ -4270,7 +4282,7 @@ void GUI_HallOfFame_Show(uint16 score)
 
 		GUI_HallOfFame_Encode(data);
 
-		fileID = File_Open("SAVEFAME.DAT", 2);
+		fileID = File_Open(filename, 2);
 		File_Write(fileID, data, 128);
 		File_Close(fileID);
 	}
