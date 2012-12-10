@@ -1,4 +1,4 @@
-Source: opendune
+Source: qtmoko-opendune
 Section: user/games
 Priority: extra
 Maintainer: Radek Polak <psonek2@seznam.cz>
@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 5), autotools-dev, libsdl1.2-dev
 Standards-Version: 3.7.2
 Homepage: http://www.opendune.org/
 
-Package: opendune
+Package: qtmoko-opendune
 Architecture: any
 Depends: libsdl-qtmoko
 Description: Classic Real-Time Strategy game
