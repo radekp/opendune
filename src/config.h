@@ -5,7 +5,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define DATA_DIR "/opt/qtmoko/share/opendune/data/"
+#define DATA_DIR "data/"
 
 MSVC_PACKED_BEGIN
 /**
