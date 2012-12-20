@@ -4,4 +4,4 @@ debian/opendune-no-sound.sh /opt/qtmoko/bin
 bin/data /opt/qtmoko/share/opendune
 debian/dune2_64.png /opt/qtmoko/pics
 debian/opendune.desktop /opt/qtmoko/apps/Games
-debian/opendune-no-sound.desktop /opt/qtmoko/apps/Games
+debian/opendune.js /opt/qtmoko/share/sdl
